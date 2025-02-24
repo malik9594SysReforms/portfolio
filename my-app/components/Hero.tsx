@@ -1,10 +1,29 @@
+'use client'
 import React from 'react'
 import { Spotlight } from './ui/Spotlight'
 import { TextGenerateEffect } from './ui/TextGenerateEffect'
 import MagicButton from './ui/MagicButton'
 import { FaLocationArrow } from 'react-icons/fa'
+import { useState } from "react";
+import animationData from './data/confetti.json'
+import Lottie from 'react-lottie'
 
 const Hero = () => {
+   
+    const [location,setLocation] = useState(false);
+    const defaultOptions ={
+        loop: location,
+        autoplay: location,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    }
+
+    const handleCopy = () => {
+        // navigator.clipboard.writeText('hassanrazamalik512@gmail.com');
+        setLocation(true);
+    }
     return (
         // <div className="pb-20 pt-36 text-white text-4xl font-bold flex justify-center">
         <div className="pb-20 pt-36">
@@ -32,12 +51,19 @@ const Hero = () => {
                             Hi, I'm Hassan, a Full Stack Developer and UI/UX Designer. I'm passionate about creating dynamic and innovative solutions for the web. Let's create something special.
                         </p>
                         <a href='#about'>
+                        <div className={`absolute -bottom-5 right-0 ${location? 'block' : 'block'}`}>
+                                    <Lottie options={
+                                    defaultOptions} 
+                                    height={200} 
+                                    width={400}/>
+                                </div>
                             <MagicButton
                             title="Check my Progress"
                             icon={<span><FaLocationArrow className='ms-3'/></span>}
-                            position="right"
+                            position="below"
                             color="purple"
                             otherClasses=''
+                            handleClick={handleCopy}
                             />
                         </a>
                 </div>
